@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Southern Custom Threads | Coming Soon</title>
+
+<meta name="description" content="Southern Custom Threads — Made for You. Worn by You. Custom apparel featuring DTF transfers and laser imaging.">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --red: #ff1744;
+  --purple: #8b2cff;
+  --teal: #00e5d4;
+  --white: #ffffff;
+  --black: #07070b;
+  --dark: #101018;
+  --gray: #a9a9b5;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  background: var(--purple);
+  filter: blur(180px);
+  opacity: .18;
+  top: -200px;
+  left: -200px;
+  z-index: -1;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  width: 450px;
+  height: 450px;
+  background: var(--teal);
+  filter: blur(180px);
+  opacity: .12;
+  bottom: -200px;
+  right: -150px;
+  z-index: -1;
+}
+
+nav {
+  width: 100%;
+  padding: 25px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  z-index: 10;
+}
+
+.logo-text {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.logo-text span {
+  color: var(--teal);
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border: 1px solid rgba(255,255,255,.25);
+  padding: 11px 18px;
+  border-radius: 50px;
+}
+
+nav a:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 100px 7% 70px;
+  position: relative;
+}
+
+.hero-content {
+  max-width: 950px;
+}
+
+.badge {
+  display: inline-block;
+  border: 1px solid var(--teal);
+  color: var(--teal);
+  padding: 9px 18px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 25px;
+}
+
+.hero h1 {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(65px, 11vw, 150px);
+  line-height: .88;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.hero h1 .red {
+  color: var(--red);
+}
+
+.hero h1 .purple {
+  color: var(--purple);
+}
+
+.tagline {
+  margin: 30px auto 15px;
+  font-size: clamp(18px, 3vw, 28px);
+  font-weight: 700;
+}
+
+.subtext {
+  max-width: 650px;
+  margin: auto;
+  color: var(--gray);
+  line-height: 1.8;
+  font-size: 15px;
+}
+
+.coming {
+  margin-top: 35px;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 5px;
+  color: var(--teal);
+}
+
+.hero-buttons {
+  margin-top: 35px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.button {
+  text-decoration: none;
+  color: white;
+  padding: 15px 27px;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: .5px;
+  transition: .25s;
+}
+
+.primary {
+  background: linear-gradient(100deg, var(--red), var(--purple));
+}
+
+.secondary {
+  border: 1px solid rgba(255,255,255,.3);
+}
+
+.button:hover {
+  transform: translateY(-3px);
+}
+
+section {
+  padding: 100px 7%;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 55px;
+}
+
+.section-title span {
+  color: var(--teal);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+.section-title h2 {
+  font-family: 'Anton', sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(40px, 6vw, 75px);
+  margin-top: 10px;
+}
+
+.about {
+  background: #0c0c12;
+}
+
+.about-grid {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.about-card {
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.03);
+  border-radius: 25px;
+  padding: 40px;
+}
+
+.about-card h3 {
+  font-size: 28px;
+  margin-bottom: 18px;
+}
+
+.about-card p {
+  color: var(--gray);
+  line-height: 1.9;
+}
+
+.about-highlight {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(50px, 7vw, 90px);
+  line-height: .95;
+  text-transform: uppercase;
+}
+
+.about-highlight span {
+  color: var(--red);
+}
+
+.services {
+  max-width: 1150px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+.service {
+  background: linear-gradient(145deg, #15151f, #0b0b10);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 25px;
+  padding: 35px;
+  position: relative;
+  overflow: hidden;
+}
+
+.service::after {
+  content: "";
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: var(--purple);
+  filter: blur(70px);
+  right: -50px;
+  top: -50px;
+  opacity: .4;
+}
+
+.service:nth-child(2)::after {
+  background: var(--teal);
+}
+
+.service-number {
+  color: var(--red);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.service h3 {
+  margin: 15px 0;
+  font-size: 27px;
+}
+
+.service p {
+  color: var(--gray);
+  line-height: 1.7;
+}
+
+.collections {
+  background: #0c0c12;
+}
+
+.collection-grid {
+  max-width: 1150px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.collection {
+  padding: 14px 21px;
+  border-radius: 50px;
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(255,255,255,.035);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.collection:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+.final {
+  text-align: center;
+  padding: 120px 7%;
+}
+
+.final h2 {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(55px, 9vw, 110px);
+  line-height: .9;
+  text-transform: uppercase;
+}
+
+.final h2 span {
+  color: var(--purple);
+}
+
+.final p {
+  max-width: 600px;
+  margin: 25px auto;
+  color: var(--gray);
+  line-height: 1.8;
+}
+
+footer {
+  border-top: 1px solid rgba(255,255,255,.1);
+  padding: 30px 7%;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  color: #777783;
+  font-size: 12px;
+}
+
+footer strong {
+  color: white;
+}
+
+@media (max-width: 750px) {
+
+  nav {
+    padding: 20px 5%;
+  }
+
+  nav a {
+    display: none;
+  }
+
+  .hero {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  section {
+    padding: 75px 5%;
+  }
+
+  .about-grid,
+  .services {
+    grid-template-columns: 1fr;
+  }
+
+  .about-card {
+    padding: 28px;
+  }
+
+  .final {
+    padding: 90px 5%;
+  }
+
+  footer {
+    text-align: center;
+    justify-content: center;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo-text">SOUTHERN <span>CUSTOM THREADS</span></div>
+  <a href="#about">EXPLORE SCT</a>
+</nav>
+
+<section class="hero">
+
+  <div class="hero-content">
+
+    <div class="badge">EST. SOUTHERN MADE • COMING SOON</div>
+
+    <h1>
+      SOUTHERN<br>
+      <span class="red">CUSTOM</span><br>
+      <span class="purple">THREADS</span>
+    </h1>
+
+    <div class="tagline">
+      Made for You. Worn by You.
+    </div>
+
+    <p class="subtext">
+      Custom apparel made to feel like YOU.
+      Bold designs, personal touches, Southern attitude,
+      and creativity brought straight to your wardrobe.
+    </p>
+
+    <div class="coming">
+      THE THREADS ARE COMING
+    </div>
+
+    <div class="hero-buttons">
+      <a class="button primary" href="#services">WHAT WE CREATE</a>
+      <a class="button secondary" href="#collections">EXPLORE COLLECTIONS</a>
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="about" id="about">
+
+  <div class="section-title">
+    <span>WELCOME TO SCT</span>
+    <h2>More Than A Shirt</h2>
+  </div>
+
+  <div class="about-grid">
+
+    <div class="about-highlight">
+      YOUR<br>
+      STYLE.<br>
+      <span>YOUR</span><br>
+      THREADS.
+    </div>
+
+    <div class="about-card">
+
+      <h3>Southern Custom Threads</h3>
+
+      <p>
+        SCT was created for people who want their clothes
+        to say something. Whether you're Southern at heart,
+        obsessed with a certain aesthetic, celebrating your
+        family, showing off your favorite hobby, or simply
+        want something nobody else has — we're creating it
+        for you.
+      </p>
+
+      <br>
+
+      <p>
+        Our apparel is created using DTF transfers and
+        laser imaging to bring custom designs to life.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section id="services">
+
+  <div class="section-title">
+    <span>WHAT WE DO</span>
+    <h2>Our Craft</h2>
+  </div>
+
+  <div class="services">
+
+    <div class="service">
+      <div class="service-number">01 / DTF</div>
+      <h3>DTF Transfers</h3>
+      <p>
+        High-quality custom DTF transfers designed to
+        bring vibrant artwork, graphics, names, sayings,
+        and personalized creations to apparel.
+      </p>
+    </div>
+
+    <div class="service">
+      <div class="service-number">02 / LASER</div>
+      <h3>Laser Imaging</h3>
+      <p>
+        Precision laser imaging for custom apparel and
+        designs that need a unique finish and serious
+        attention to detail.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="collections" id="collections">
+
+  <div class="section-title">
+    <span>FIND YOUR STYLE</span>
+    <h2>Collections</h2>
+  </div>
+
+  <div class="collection-grid">
+
+    <div class="collection">🤠 Western / Country</div>
+    <div class="collection">🌵 Southern</div>
+    <div class="collection">🎀 Girly / Boutique</div>
+    <div class="collection">✨ Cute</div>
+    <div class="collection">👻 Spooky</div>
+    <div class="collection">💀 Horror / Dark</div>
+    <div class="collection">😂 Funny / Sarcastic</div>
+    <div class="collection">💿 Y2K / Retro</div>
+    <div class="collection">🌸 Floral / Nature</div>
+    <div class="collection">🐾 Animals</div>
+    <div class="collection">👨‍👩‍👧 Family / Personalized</div>
+    <div class="collection">🎮 Gaming</div>
+    <div class="collection">🏆 Sports</div>
+    <div class="collection">🇺🇸 Patriotic</div>
+    <div class="collection">🎄 Seasonal / Holidays</div>
+    <div class="collection">✨ Inspirational</div>
+    <div class="collection">🙏 Faith</div>
+    <div class="collection">🎵 Music</div>
+    <div class="collection">🌿 Stoner</div>
+
+  </div>
+
+</section>
+
+
+<section class="final">
+
+  <h2>
+    SOMETHING<br>
+    <span>CUSTOM</span><br>
+    IS COMING.
+  </h2>
+
+  <p>
+    We're getting everything ready behind the scenes.
+    SCT is coming soon with custom apparel made
+    for your personality, your people, and your style.
+  </p>
+
+  <div class="hero-buttons">
+    <a class="button primary" href="mailto:YOUR-EMAIL-HERE">
+      CONTACT SCT
+    </a>
+  </div>
+
+</section>
+
+
+<footer>
+  <div>
+    <strong>SOUTHERN CUSTOM THREADS</strong>
+  </div>
+
+  <div>
+    Made for You. Worn by You. © 2026 SCT
+  </div>
+</footer>
+
+</body>
+</html>
