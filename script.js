@@ -1,79 +1,101 @@
+const sheets = {
+  kids1:{title:"Kids",file:"01_Kids_Gang_Sheet.jpeg",cols:8,rows:8,count:64},
+  fairyA:{title:"Fairy / Women",file:"03_Fairy_Gang_Sheet.jpeg",cols:5,rows:4,count:20},
+  funny:{title:"Funny & Sarcastic",file:"04_Funny_Gang_Sheet.jpeg",cols:6,rows:6,count:36},
+  stonerA:{title:"Stoner",file:"05_Stoner_Gang_Sheet_A.jpeg",cols:6,rows:6,count:36},
+  rust:{title:"Rust Gaming",file:"06_Rust_Gang_Sheet.jpeg",cols:5,rows:4,count:20},
+  assortedA:{title:"Assorted",file:"07_Assorted_Gang_Sheet_A.jpeg",cols:10,rows:10,count:100},
+  stonerB:{title:"Stoner",file:"09_Stoner_Gang_Sheet_B.jpeg",cols:7,rows:6,count:42},
+  fairyB:{title:"Fairy",file:"10_Fairy_Gang_Sheet_B.jpeg",cols:6,rows:8,count:48},
+  kidsB:{title:"Kids",file:"11_Kids_Gang_Sheet_B.jpeg",cols:6,rows:9,count:50},
+  assortedB:{title:"Assorted",file:"12_Assorted_Gang_Sheet_B.jpeg",cols:7,rows:7,count:49},
+  mens:{title:"Men's / Blue Collar",file:"13_Blue_Collar_Gang_Sheet.jpeg",cols:5,rows:6,count:28},
+  stonerC:{title:"Stoner",file:"14_Stoner_Gang_Sheet_C.jpeg",cols:4,rows:6,count:24}
+};
+
 const collections = [
-  "Western / Country","Southern","Girly / Boutique","Cute","Spooky","Horror / Dark",
-  "Funny / Sarcastic","Y2K / Retro","Floral / Nature","Animals","Family / Personalized",
-  "Gaming","Sports","Patriotic","Seasonal / Holidays","Inspirational","Faith","Music",
-  "Stoners","Mens","Womens","Kids","Newborn / Toddler","Blue Collar / Work Life",
-  "Mom Life","Dad Life","Outdoors / Adventure","Hunting / Fishing","Biker / Motorcycle",
-  "Drinks / Party Life","Truck / Off-Road","Jeep / ATV","Lake Life","Beach Life",
-  "Pet Lovers","Beauty / Self-Care","Home Body","College Life","Nurse / Medical",
-  "Teacher","Chaos / Mentality","Couples / Relationship","Redneck / Southern Humor",
-  "Concert / Country Music","Petty / Savage","Rust Gaming","Custom Orders"
+  ["Fairy","Fairy designs","fairyA","fairyB"],
+  ["Stoner","Stoner designs","stonerA","stonerB","stonerC"],
+  ["Kids","Kids designs","kids1","kidsB"],
+  ["Funny & Sarcastic","Funny, petty and chaotic designs","funny"],
+  ["Rust Gaming","Rust gaming designs","rust"],
+  ["Men's / Blue Collar","Outdoors, work, country and men's designs","mens"],
+  ["Women's / Boutique","Women's, southern and lifestyle designs","fairyA"],
+  ["Assorted","Mixed designs and extra drops","assortedA","assortedB"]
 ];
 
-const masters = [
-  ["01_Kids_Gang_Sheet.jpeg","Kids"],
-  ["02_Collection_Categories.jpeg","Collection Categories"],
-  ["03_Fairy_Gang_Sheet.jpeg","Fairy"],
-  ["04_Funny_Gang_Sheet.jpeg","Funny"],
-  ["05_Stoner_Gang_Sheet_A.jpeg","Stoner A"],
-  ["06_Rust_Gang_Sheet.jpeg","Rust"],
-  ["07_Assorted_Gang_Sheet_A.jpeg","Assorted A"],
-  ["08_SCT_Collection_Cards.jpeg","SCT Collection Cards"],
-  ["09_Stoner_Gang_Sheet_B.jpeg","Stoner B"],
-  ["10_Fairy_Gang_Sheet_B.jpeg","Fairy B"],
-  ["11_Kids_Gang_Sheet_B.jpeg","Kids B"],
-  ["12_Assorted_Gang_Sheet_B.jpeg","Assorted B"],
-  ["13_Blue_Collar_Gang_Sheet.jpeg","Blue Collar"],
-  ["14_Stoner_Gang_Sheet_C.jpeg","Stoner C"]
-];
-
-const collectionGrid = document.getElementById("collection-grid");
-collections.forEach((name, i) => {
-  const card = document.createElement("a");
-  card.className = "collection-card";
-  card.href = "#masters";
-  card.innerHTML = `<span class="num">${String(i+1).padStart(2,"0")}</span>
-    <h3>${name}</h3>
-    <p>Design gallery coming next</p>`;
-  collectionGrid.appendChild(card);
-});
-
-const masterGrid = document.getElementById("master-grid");
-masters.forEach(([file, name]) => {
-  const card = document.createElement("article");
-  card.className = "master-card";
-  card.innerHTML = `<img src="assets/masters/${file}" alt="${name} master gang sheet" loading="lazy">
-    <div class="master-info"><strong>${name}</strong><span>Master artwork</span></div>`;
-  const img = card.querySelector("img");
-  img.addEventListener("click", () => openLightbox(img.src, name));
-  masterGrid.appendChild(card);
-});
-
+const cards = document.getElementById("collectionCards");
+const gallery = document.getElementById("gallery");
+const galleryGrid = document.getElementById("galleryGrid");
+const galleryTitle = document.getElementById("galleryTitle");
+const galleryEyebrow = document.getElementById("galleryEyebrow");
+const search = document.getElementById("search");
 const lightbox = document.getElementById("lightbox");
-const lightboxImage = document.getElementById("lightbox-image");
-const lightboxCaption = document.getElementById("lightbox-caption");
+const lightboxArt = document.getElementById("lightboxArt");
+const lightboxTitle = document.getElementById("lightboxTitle");
 
-function openLightbox(src, caption) {
-  lightboxImage.src = src;
-  lightboxImage.alt = caption;
-  lightboxCaption.textContent = caption;
-  lightbox.classList.add("open");
-  lightbox.setAttribute("aria-hidden","false");
+function makeCard(c){
+  const [name, desc, ...keys] = c;
+  const el = document.createElement("button");
+  el.className = "collection-card";
+  el.dataset.search = `${name} ${desc}`.toLowerCase();
+  el.innerHTML = `<h3>${name}</h3><p>${desc}</p>`;
+  el.addEventListener("click",()=>openCollection(name, keys));
+  return el;
 }
-function closeLightbox() {
-  lightbox.classList.remove("open");
-  lightbox.setAttribute("aria-hidden","true");
-  lightboxImage.src = "";
-}
-document.querySelector(".lightbox-close").addEventListener("click", closeLightbox);
-lightbox.addEventListener("click", e => { if (e.target === lightbox) closeLightbox(); });
-document.addEventListener("keydown", e => { if (e.key === "Escape") closeLightbox(); });
+collections.forEach(c=>cards.appendChild(makeCard(c)));
 
-const menuToggle = document.querySelector(".menu-toggle");
-const nav = document.querySelector(".nav");
-menuToggle.addEventListener("click", () => {
-  const open = nav.classList.toggle("open");
-  menuToggle.setAttribute("aria-expanded", String(open));
+function spriteStyle(s, index){
+  const col=index % s.cols, row=Math.floor(index/s.cols);
+  const x = s.cols===1 ? 0 : (col/(s.cols-1))*100;
+  const y = s.rows===1 ? 0 : (row/(s.rows-1))*100;
+  return {
+    backgroundImage:`url("${s.file}")`,
+    backgroundSize:`${s.cols*100}% ${s.rows*100}%`,
+    backgroundPosition:`${x}% ${y}%`
+  };
+}
+
+function openCollection(name, keys){
+  gallery.classList.remove("hidden");
+  galleryTitle.textContent=name;
+  galleryEyebrow.textContent=`${name.toUpperCase()} COLLECTION`;
+  galleryGrid.innerHTML="";
+  keys.forEach(key=>{
+    const s=sheets[key];
+    for(let i=0;i<s.count;i++){
+      const card=document.createElement("button");
+      card.className="design-card";
+      const art=document.createElement("span");
+      art.className="sprite";
+      const st=spriteStyle(s,i);
+      Object.assign(art.style,st);
+      card.appendChild(art);
+      const label=document.createElement("span");
+      label.className="label";
+      label.textContent=`${s.title} • Design ${i+1}`;
+      card.appendChild(label);
+      card.addEventListener("click",()=>{
+        lightboxTitle.textContent=`${s.title} • Design ${i+1}`;
+        Object.assign(lightboxArt.style,st);
+        lightboxArt.style.backgroundSize=`${s.cols*100}% ${s.rows*100}%`;
+        lightboxArt.style.backgroundPosition=`${st.backgroundPosition}`;
+        lightbox.classList.remove("hidden");
+      });
+      galleryGrid.appendChild(card);
+    }
+  });
+  gallery.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+document.getElementById("backBtn").addEventListener("click",()=>{
+  gallery.classList.add("hidden");
+  document.getElementById("collections").scrollIntoView({behavior:"smooth"});
 });
-
-document.getElementById("year").textContent = new Date().getFullYear();
+document.getElementById("closeLightbox").addEventListener("click",()=>lightbox.classList.add("hidden"));
+lightbox.addEventListener("click",e=>{if(e.target===lightbox)lightbox.classList.add("hidden")});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")lightbox.classList.add("hidden")});
+search.addEventListener("input",()=>{
+  const q=search.value.trim().toLowerCase();
+  [...cards.children].forEach(c=>c.hidden=q && !c.dataset.search.includes(q));
+});

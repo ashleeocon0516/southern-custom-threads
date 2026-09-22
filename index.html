@@ -3,100 +3,96 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Southern Custom Threads | SCT</title>
-  <meta name="description" content="Southern Custom Threads — custom designs, apparel, and collections.">
+  <title>Southern Custom Threads</title>
+  <meta name="description" content="Southern Custom Threads — DTF transfers and laser imaging.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="site-header">
-    <a class="brand" href="#top" aria-label="Southern Custom Threads home">
-      <span class="brand-mark">SCT</span>
-      <span class="brand-copy">
-        <strong>Southern Custom Threads</strong>
-        <small>Custom. Southern. Yours.</small>
-      </span>
-    </a>
-    <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
-    <nav class="nav">
-      <a href="#collections">Collections</a>
-      <a href="#masters">Gang Sheets</a>
-      <a href="#about">About SCT</a>
-    </nav>
-  </header>
+<header class="site-header">
+  <a class="brand" href="#top" aria-label="Southern Custom Threads home">
+    <img src="https://raw.githubusercontent.com/ashleeocon0516/southern-custom-threads/main/SCT%20logo.png" alt="SCT logo">
+    <span>Southern Custom Threads</span>
+  </a>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#collections">Collections</a>
+    <a href="#custom">Custom Orders</a>
+  </nav>
+</header>
 
-  <main id="top">
-    <section class="hero">
-      <div class="hero-glow glow-one"></div>
-      <div class="hero-glow glow-two"></div>
-      <div class="hero-content">
-        <p class="eyebrow">SOUTHERN CUSTOM THREADS</p>
-        <h1>Wear your <span>kind of chaos.</span></h1>
-        <p class="hero-text">Browse the SCT collection library, find a design you love, and make it yours.</p>
-        <div class="hero-actions">
-          <a class="btn primary" href="#collections">Browse Collections</a>
-          <a class="btn ghost" href="#masters">View Master Sheets</a>
-        </div>
-      </div>
-      <div class="hero-badge">
-        <span>01</span>
-        <div>
-          <strong>Collections</strong>
-          <small>Individual designs coming next</small>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="collections">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">SHOP BY STYLE</p>
-          <h2>Collections</h2>
-        </div>
-        <p class="section-note">Your collection structure is ready. Individual design files can be dropped in as we verify them.</p>
-      </div>
-      <div id="collection-grid" class="collection-grid"></div>
-    </section>
-
-    <section class="section dark-section" id="masters">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">SOURCE LIBRARY</p>
-          <h2>Master Gang Sheets</h2>
-        </div>
-        <p class="section-note">These are the untouched master sheets. They stay here as the original source artwork.</p>
-      </div>
-      <div id="master-grid" class="master-grid"></div>
-    </section>
-
-    <section class="section about" id="about">
-      <div class="about-card">
-        <p class="eyebrow">SCT</p>
-        <h2>Built for people who don't do boring.</h2>
-        <p>Southern Custom Threads is a growing custom apparel collection built around bold artwork, bright color, and designs with personality.</p>
-        <div class="about-pills">
-          <span>Custom Designs</span>
-          <span>Apparel</span>
-          <span>Bold Color</span>
-          <span>Southern Style</span>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <div id="lightbox" class="lightbox" aria-hidden="true">
-    <button class="lightbox-close" aria-label="Close">×</button>
-    <img id="lightbox-image" alt="">
-    <p id="lightbox-caption"></p>
-  </div>
-
-  <footer>
-    <div>
-      <strong>SCT • Southern Custom Threads</strong>
-      <span>Custom. Southern. Yours.</span>
+<main id="top">
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">SOUTHERN CUSTOM THREADS</p>
+      <h1>Made for You.<br><span>Worn by You.</span></h1>
+      <p>Custom apparel, DTF transfers and laser-imaged designs made to stand out.</p>
+      <a class="button" href="#collections">Browse Designs</a>
     </div>
-    <span>© <span id="year"></span> Southern Custom Threads</span>
-  </footer>
+  </section>
 
-  <script src="script.js"></script>
+  <section id="about" class="section intro">
+    <p class="eyebrow">WELCOME TO SCT</p>
+    <h2>Pick a collection. Find your design.</h2>
+    <p>The gallery below uses the original SCT gang-sheet artwork as the source. The master sheets are kept untouched; each design is displayed as a precise grid view instead of creating tiny replacement files.</p>
+  </section>
+
+  <section id="services" class="section">
+    <p class="eyebrow">WHAT WE DO</p>
+    <div class="service-grid">
+      <article><h3>DTF Transfers</h3><p>Bold, full-color transfers ready for apparel.</p></article>
+      <article><h3>Laser Imaging</h3><p>Detailed custom imaging for a clean finished look.</p></article>
+    </div>
+  </section>
+
+  <section id="collections" class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">COLLECTIONS</p>
+        <h2>Choose your vibe.</h2>
+      </div>
+      <input id="search" type="search" placeholder="Search collections or designs..." aria-label="Search designs">
+    </div>
+    <div id="collectionCards" class="collection-cards"></div>
+  </section>
+
+  <section id="gallery" class="section gallery-section hidden">
+    <div class="section-heading">
+      <div>
+        <button id="backBtn" class="text-button">← Back to Collections</button>
+        <p class="eyebrow" id="galleryEyebrow">COLLECTION</p>
+        <h2 id="galleryTitle"></h2>
+      </div>
+    </div>
+    <div id="galleryGrid" class="design-grid"></div>
+  </section>
+
+  <section id="custom" class="section custom">
+    <p class="eyebrow">CUSTOM ORDERS</p>
+    <h2>Have something specific in mind?</h2>
+    <p>Send your idea, theme, wording or reference and SCT can build a custom design around it.</p>
+    <a class="button" href="mailto:ashleeocon0912@yahoo.com">Start a Custom Order</a>
+  </section>
+</main>
+
+<div id="lightbox" class="lightbox hidden" role="dialog" aria-modal="true" aria-label="Design preview">
+  <button id="closeLightbox" class="close" aria-label="Close">×</button>
+  <div class="lightbox-inner">
+    <div id="lightboxArt" class="lightbox-art"></div>
+    <div class="lightbox-meta">
+      <h3 id="lightboxTitle"></h3>
+      <p>Original SCT source artwork — displayed without resizing the source file.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand">
+    <img src="https://raw.githubusercontent.com/ashleeocon0516/southern-custom-threads/main/SCT%20logo.png" alt="SCT logo">
+    <strong>Southern Custom Threads</strong>
+  </div>
+  <p>© 2026 Southern Custom Threads. All rights reserved.</p>
+</footer>
+<script src="script.js"></script>
 </body>
 </html>
