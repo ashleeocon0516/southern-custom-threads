@@ -34,78 +34,101 @@ const lightbox = document.getElementById("lightbox");
 const lightboxArt = document.getElementById("lightboxArt");
 const lightboxTitle = document.getElementById("lightboxTitle");
 
+function cellRatio(s){
+  return (s.width / s.cols) / (s.height / s.rows);
+}
+
 function makeCard(c){
   const [name, desc, ...keys] = c;
   const el = document.createElement("button");
+  el.type = "button";
   el.className = "collection-card";
   el.dataset.search = `${name} ${desc}`.toLowerCase();
-  const previewKey = keys[0];
-  const preview = sheets[previewKey];
-  el.innerHTML = `<span class="collection-photo"><img src="${preview.file}" alt="${name} collection preview" loading="lazy"></span><span class="collection-copy"><h3>${name}</h3><p>${desc}</p></span>`;
-  el.addEventListener("click",()=>openCollection(name, keys));
+  const preview = sheets[keys[0]];
+  el.innerHTML = `
+    <span class="collection-photo">
+      <img src="${preview.file}" alt="${name} collection preview" loading="lazy">
+    </span>
+    <span class="collection-copy">
+      <h3>${name}</h3>
+      <p>${desc}</p>
+      <span class="collection-cta">View collection →</span>
+    </span>`;
+  el.addEventListener("click", () => openCollection(name, keys));
   return el;
 }
-collections.forEach(c=>cards.appendChild(makeCard(c)));
+
+collections.forEach(c => cards.appendChild(makeCard(c)));
 
 function spriteStyle(s, index){
-  const col=index % s.cols, row=Math.floor(index/s.cols);
-  const x = s.cols===1 ? 0 : (col/(s.cols-1))*100;
-  const y = s.rows===1 ? 0 : (row/(s.rows-1))*100;
-  const cellAspect = (s.width / s.cols) / (s.height / s.rows);
+  const col = index % s.cols;
+  const row = Math.floor(index / s.cols);
+  const x = s.cols === 1 ? 0 : (col / (s.cols - 1)) * 100;
+  const y = s.rows === 1 ? 0 : (row / (s.rows - 1)) * 100;
   return {
-    backgroundImage:`url("${s.file}")`,
-    backgroundSize:`${s.cols*100}% ${s.rows*100}%`,
-    backgroundPosition:`${x}% ${y}%`,
-    aspectRatio:String(cellAspect),
-    backgroundRepeat:"no-repeat",
-    backgroundColor:"#fff"
+    backgroundImage: `url("${s.file}")`,
+    backgroundSize: `${s.cols * 100}% ${s.rows * 100}%`,
+    backgroundPosition: `${x}% ${y}%`,
+    backgroundRepeat: "no-repeat",
+    backgroundColor: "#fff",
+    aspectRatio: String(cellRatio(s))
   };
+}
+
+function showLightbox(s, index){
+  const st = spriteStyle(s, index);
+  lightboxTitle.textContent = `${s.title} • Design ${index + 1}`;
+  Object.assign(lightboxArt.style, st);
+  lightboxArt.style.width = "min(92vw, 1000px)";
+  lightboxArt.style.height = "auto";
+  lightboxArt.style.maxWidth = "92vw";
+  lightboxArt.style.maxHeight = "78vh";
+  lightboxArt.style.aspectRatio = String(cellRatio(s));
+  lightboxArt.style.backgroundSize = `${s.cols * 100}% ${s.rows * 100}%`;
+  lightbox.classList.remove("hidden");
 }
 
 function openCollection(name, keys){
   gallery.classList.remove("hidden");
-  galleryTitle.textContent=name;
-  galleryEyebrow.textContent=`${name.toUpperCase()} COLLECTION`;
-  galleryGrid.innerHTML="";
-  keys.forEach(key=>{
-    const s=sheets[key];
-    for(let i=0;i<s.count;i++){
-      const card=document.createElement("button");
-      card.className="design-card";
-      const art=document.createElement("span");
-      art.className="sprite";
-      const st=spriteStyle(s,i);
-      Object.assign(art.style,st);
+  galleryTitle.textContent = name;
+  galleryEyebrow.textContent = `${name.toUpperCase()} COLLECTION`;
+  galleryGrid.innerHTML = "";
+
+  keys.forEach(key => {
+    const s = sheets[key];
+    for(let i = 0; i < s.count; i++){
+      const card = document.createElement("button");
+      card.type = "button";
+      card.className = "design-card";
+      card.style.aspectRatio = String(cellRatio(s));
+
+      const art = document.createElement("span");
+      art.className = "sprite";
+      Object.assign(art.style, spriteStyle(s, i));
       card.appendChild(art);
-      const label=document.createElement("span");
-      label.className="label";
-      label.textContent=`${s.title} • Design ${i+1}`;
+
+      const label = document.createElement("span");
+      label.className = "label";
+      label.textContent = `${s.title} • Design ${i + 1}`;
       card.appendChild(label);
-      card.addEventListener("click",()=>{
-        lightboxTitle.textContent=`${s.title} • Design ${i+1}`;
-        Object.assign(lightboxArt.style,st);
-        lightboxArt.style.width="100%";
-        lightboxArt.style.maxHeight="78vh";
-        lightboxArt.style.minHeight="0";
-        lightboxArt.style.aspectRatio=String((s.width / s.cols) / (s.height / s.rows));
-        lightboxArt.style.backgroundSize=`${s.cols*100}% ${s.rows*100}%`;
-        lightboxArt.style.backgroundPosition=st.backgroundPosition;
-        lightbox.classList.remove("hidden");
-      });
+
+      card.addEventListener("click", () => showLightbox(s, i));
       galleryGrid.appendChild(card);
     }
   });
-  gallery.scrollIntoView({behavior:"smooth",block:"start"});
+  gallery.scrollIntoView({behavior:"smooth", block:"start"});
 }
 
-document.getElementById("backBtn").addEventListener("click",()=>{
+document.getElementById("backBtn").addEventListener("click", () => {
   gallery.classList.add("hidden");
   document.getElementById("collections").scrollIntoView({behavior:"smooth"});
 });
-document.getElementById("closeLightbox").addEventListener("click",()=>lightbox.classList.add("hidden"));
-lightbox.addEventListener("click",e=>{if(e.target===lightbox)lightbox.classList.add("hidden")});
-document.addEventListener("keydown",e=>{if(e.key==="Escape")lightbox.classList.add("hidden")});
-search.addEventListener("input",()=>{
-  const q=search.value.trim().toLowerCase();
-  [...cards.children].forEach(c=>c.hidden=q && !c.dataset.search.includes(q));
+
+document.getElementById("closeLightbox").addEventListener("click", () => lightbox.classList.add("hidden"));
+lightbox.addEventListener("click", e => { if(e.target === lightbox) lightbox.classList.add("hidden"); });
+document.addEventListener("keydown", e => { if(e.key === "Escape") lightbox.classList.add("hidden"); });
+
+search.addEventListener("input", () => {
+  const q = search.value.trim().toLowerCase();
+  [...cards.children].forEach(c => c.hidden = !!q && !c.dataset.search.includes(q));
 });
